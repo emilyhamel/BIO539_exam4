@@ -40,10 +40,10 @@ def obv_kmers(k, seq):
     seq (string) = the string (or sequence) of characters in question
     
   Return:
-  value = the observed length of the k-mer for the sequence of characters.
+  count (value) = the observed length of the k-mer for the sequence of characters.
   
   In order to return locally (independent of this file), continue definition as follows:
-    observed = obv_kmers(9,'ATTTGGATT')
+    observed = obv_kmers(k, seq)
     print(observed)
   """
   list_complete = list() #list to be populated
@@ -84,3 +84,25 @@ def dataframe(seq):
   table = pd.DataFrame(empty_df, index = range(1, string+1), columns = ['Possible', 'Observed'])
   table.loc['TOTALS'] = table.sum() #sums the values
   return(table)
+
+
+#calculate the linguistic complexity of the string of characters
+def ling_complex(dataframe):
+  """
+  This function is used to calculate the linguistic complexity of a given string of characters. This linguistic complexity is defined as the total number of observed k-mers divided by the total number of possible k-mers.
+  
+  Parameters:
+  dataframe = the data frame created by the "dataframe" function and the totals calculated within the table are used to divide these total values
+  
+  Return:
+  LC (value) = the calculated linguistic complexity of a given string
+  
+  In order to return locally (independent of this file), continue definition as follows:
+    value_lc = ling_complex(dataframe(seq))
+    print(value_lc)
+  """
+  LC = table.loc['TOTALS', 'Observed']/table.loc['TOTALS', 'Possible']
+  return(LC)
+  
+
+
