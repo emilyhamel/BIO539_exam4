@@ -101,8 +101,9 @@ def ling_complex(dataframe):
     value_lc = ling_complex(dataframe(seq))
     print(value_lc)
   """
-  LC = table.loc['TOTALS', 'Observed']/table.loc['TOTALS', 'Possible']
+  LC = table.loc['TOTALS', 'Observed']/table.loc['TOTALS', 'Possible'] #division of the total observed k-mers and the total possible k-mers to determine the linguistic complexity
   return(LC)
   
+
 
 
