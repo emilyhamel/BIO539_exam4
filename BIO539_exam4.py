@@ -21,13 +21,13 @@ def psb_kmers(k, seq):
     possible = psb_kmers(k, seq)
     print(possible)
   """
-    string = len(seq) #counts the length of the given string of characters
-    a = 4**k
-    b = string - k + 1
-    if a > b: #in order to return the possible k-mer with the lowest value
-        return b
-    else:
-        return a
+  string = len(seq) #counts the length of the given string of characters
+  a = 4**k
+  b = string - k + 1
+  if a > b: #in order to return the possible k-mer with the lowest value
+    return b
+  else:
+    return a
         
         
 #calculate the observed k-mers relevant to a given string
@@ -81,9 +81,10 @@ def dataframe(seq):
   for i in range(1, string+1): #the "+1" was added to the string in order to troubleshoot the table printing one row less than the number of characters in a string, I am unsure why this was the case (but adding this +1 to the ranges in this function and the obv_kmers function fixes this issue)
     k = i #sets the value of k equal to the range from 1 to the length of the string (which is defined above as the "i", or index, value)
     empty_df.append([psb_kmers(k, seq), obv_kmers(k, seq)]) #add the values from the psb_kmers and the obv_kmers to the empty_df list
-  table = pd.DataFrame(empty_df, index = range(1, string+1), columns = ['Possible', 'Observed'])
-  table.loc['TOTALS'] = table.sum() #sums the values
-  return(table)
+  df = pd.DataFrame(empty_df, index = range(1, string+1), columns = ['Possible', 'Observed'])
+  df.loc['TOTALS'] = df.sum() #sums the values
+  return(df)
+
 
 
 #calculate the linguistic complexity of the string of characters
@@ -101,19 +102,37 @@ def ling_complex(dataframe):
     value_lc = ling_complex(dataframe(seq))
     print(value_lc)
   """
-  LC = table.loc['TOTALS', 'Observed']/table.loc['TOTALS', 'Possible'] #division of the total observed k-mers and the total possible k-mers to determine the linguistic complexity
+  LC = dataframe.loc['TOTALS', 'Observed']/dataframe.loc['TOTALS', 'Possible'] #division of the total observed k-mers and the total possible k-mers to determine the linguistic complexity
   return(LC)
 
 
 #the main function seeks to combine the functions written above (psb_kmers, obv_kmers, dataframe, and ling_complex) to output the information as its own file
-  #want k to be >0 and want to only look at characters ATCG
-  #want to use sample_strings.txt
-  #want to output dataframe and LC into a .csv? .txt? does it matter? who knows
+def main(args):
+  """
+  The main function looking at the functions defined above. This function seeks to create an output file that shows the data frame and the linguistic complexity of a given series of characters as defined in the 'sample_strings.txt' file.
+  
+  Parameters:
+  Text File (.txt) = a file containing strings of characters that the user wishes to analyse 
+  
+  Returns:
+  File (.csv) = an output file containing the dataframe for the string of characters
+  Linguistic Complexity (command line statement) = a statement on the command line outlining the calculated linguistic complexity for the string of characters
+  
+  I am aware that something is amiss with this function and I am unable to determine the missing piece
+  """
+  file_seq = 'sample_strings.txt'
+  with open(file_seq, 'r') as string_file: #read in the file from the command line
+    char_sequence = string_file.read()
+  create_df = dataframe(char_sequence) #build a data frame using the ATCG string from the file
+  create_lc = ling_complex(char_sequence) #calculate the linguistic complexity of the ATCG string from the file
+  create_df.to.csv('output')
+  print("linguistic complexity =", create_lc, "for", char_sequence)
+
 
 #argument parser function, written in order to define main function arguments from the command line
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument()
+  parser.add_argument(args.seq, type=argparse.FileType('r')) #in order to read the strings from the text file
   args = parser.parse_args()
   main(args)  
 
