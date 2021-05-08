@@ -17,10 +17,14 @@ BIO539_exam4.py k, seq (where k is the k value and seq is the string of ATCG cha
 This repository also includes a test file to ensure that the functions proceeding "main" operate correctly. 
 
 
-###Running BIO539_exam4.py
+### Running BIO539_exam4.py
+
 python 3 (though this should be specified at the beginning of the code file)
+
 BIO539_exam4.py sample_strings.txt
 
-###Running test_BIO539_exam4.py
+
+### Running test_BIO539_exam4.py
+
 py.test
 
