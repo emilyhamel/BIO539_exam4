@@ -41,16 +41,16 @@ import pandas as pd
 def test_dataframe():
   empty_df = [[4,3], [8,5], [7,6], [6,6], [5,5], [4,4], [3,3], [2,2], [1,1], [40,35]]
   seq = 'ATTTGGATT'
-  table = pd.DataFrame(empty_df, columns = ['Possible', 'Observed'], index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'TOTALS'])
+  df = pd.DataFrame(empty_df, columns = ['Possible', 'Observed'], index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'TOTALS'])
   actual_result = dataframe(seq)
-  expected_result = table.equals(actual_result)
+  expected_result = df.equals(actual_result)
   assert expected_result == True
   
 
 #Test of the function to calculate linguistic complexity 
-def ling_complex():
+def test_ling_complex():
   empty_df = [[4,3], [8,5], [7,6], [6,6], [5,5], [4,4], [3,3], [2,2], [1,1], [40,35]]
-  table = pd.DataFrame(empty_df, columns = ['Possible', 'Observed'], index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'TOTALS'])
-  actual_result = ling_complex(table)
-  expected_result = (35/40)
+  df = pd.DataFrame(empty_df, columns = ['Possible', 'Observed'], index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'TOTALS'])
+  actual_result = ling_complex(df)
+  expected_result = (0.875)
   assert actual_result == expected_result
