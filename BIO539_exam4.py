@@ -103,7 +103,19 @@ def ling_complex(dataframe):
   """
   LC = table.loc['TOTALS', 'Observed']/table.loc['TOTALS', 'Possible'] #division of the total observed k-mers and the total possible k-mers to determine the linguistic complexity
   return(LC)
-  
+
+
+#the main function seeks to combine the functions written above (psb_kmers, obv_kmers, dataframe, and ling_complex) to output the information as its own file
+  #want k to be >0 and want to only look at characters ATCG
+  #want to use sample_strings.txt
+  #want to output dataframe and LC into a .csv? .txt? does it matter? who knows
+
+#argument parser function, written in order to define main function arguments from the command line
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument()
+  args = parser.parse_args()
+  main(args)  
 
 
 
